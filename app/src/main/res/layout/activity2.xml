@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                >
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="23dp"
+                    android:text="TextView"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp"
+                    tools:text="姓名" />
+
+                <TextView
+                    android:id="@+id/name_id"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_toEndOf="@+id/textView2"
+                    android:text="n"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_toEndOf="@+id/name_id"
+                    android:text="TextView"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp"
+                    tools:text="性别" />
+
+                <TextView
+                    android:id="@+id/sex_id"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_toEndOf="@+id/textView5"
+                    android:text="s"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_toEndOf="@+id/sex_id"
+                    android:text="TextView"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp"
+                    tools:text="年龄" />
+
+                <TextView
+                    android:id="@+id/age_id"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_toEndOf="@+id/textView7"
+                    android:text="a"
+                    android:textAlignment="viewStart"
+                    android:textSize="18sp"
+                    tools:text="a" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView"
+                    android:layout_toEndOf="@+id/textView" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                >
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="0dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="检查医生:" />
+
+                <EditText
+                    android:id="@+id/doctor_eidt_id"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="0dp"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+               >
+
+                <Button
+                    android:id="@+id/commit_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/colorAccent"
+                    android:backgroundTint="@color/colorAccent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textStyle="bold"
+                    tools:text="确定" />
+                    /Button>
+            </RelativeLayout>
+
+           <!-- <RelativeLayout
+                android:id="@+id/doprint_view_id"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@color/green"
+                android:visibility="gone">
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/press_selector"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="doPrintOnlick"
+                    android:text="去打印"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></Button>
+            </RelativeLayout>-->
+
+            <RelativeLayout
+                android:id="@+id/sendsms_view_id"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:background="#C7DE63"
+                android:visibility="gone">
+
+               <!-- <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/press_selector"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="sendSmsOnlick"
+                    android:text="发送短信"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></Button>-->
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
