@@ -3,6 +3,9 @@ package com.example.picture;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -17,6 +20,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,12 +38,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView;
     private ImageView imageView2;
-    private Button button;
-    private Button button2;
-    private Drawable drawable;
+    private Button commit_button;
+    private Button scan_button;
+    Dialog dia;
+    private ImageView diaImage;
+    private Bitmap bmLeft;
+    private Bitmap bmRight;
 
     /**
      * 文件夹下图片的真实路径
@@ -56,15 +64,43 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ListView listView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = findViewById(R.id.commit_button);//确定按钮：移出图片
-        button2 = findViewById(R.id.scan_button);//扫描按钮：显示图片
+        commit_button = findViewById(R.id.commit_button);//确定按钮：移出图片
+        scan_button = findViewById(R.id.scan_button);//扫描按钮：显示图片
         imageView = findViewById(R.id.imageView);
         imageView2 = findViewById(R.id.imageView2);
+
+        commit_button.setOnClickListener(this);
+        scan_button.setOnClickListener(this);
+        imageView.setOnClickListener(this);
+        imageView2.setOnClickListener(this);
+
+
+
+
         myPermission();
+
+
+        Context context = MainActivity.this;
+        dia = new Dialog(context, R.style.edit_AlertDialog_style);
+        dia.setContentView(R.layout.activity_start_dialog);
+
+
+        diaImage = (ImageView) dia.findViewById(R.id.start_img);
+        diaImage.setBackgroundResource(R.mipmap.iv_android);
+
+        dia.setCanceledOnTouchOutside(true);
+        Window w = dia.getWindow();
+        WindowManager.LayoutParams lp = w.getAttributes();
+        lp.x = 0;
+        lp.y = 40;
+        dia.onWindowAttributesChanged(lp);
+        //选择true的话点击其他地方可以使dialog消失，为false的话不会消失
+
 
 //        SDCardListener listener = new SDCardListener(getAbsolutePath());
 //开始监听
@@ -72,27 +108,7 @@ public class MainActivity extends AppCompatActivity {
         /*
          * 在这里做一些操作，比如创建目录什么的
          */
-
-
         //showPicture(imageView,imageView2);//显示图片
-
-        //移出图片
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moveFile();
-                imageView.setImageBitmap(null);
-                imageView2.setImageBitmap(null);
-            }
-        });
-        //设置图片
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                moveFile2();//移动所有图片到原来文件夹
-                showPicture(imageView,imageView2);//显示图片
-            }
-        });
 
         //最后停止监听
 //        listener.stopWatching();
@@ -163,25 +179,73 @@ public class MainActivity extends AppCompatActivity {
             int count = 0;
             File onefile = new File(path);
             File[] allfiles = onefile.listFiles();
+            int length =allfiles.length;
+            if(length>2){
+                AlertDialog alertDialog1 = new AlertDialog.Builder(this)
+                        .setTitle("picture文件夹存储图片超过两张，无法识别")//标题
+                       /* .setMessage("picture文件夹一次只能存储两张图片")//内容*/
+                        .setIcon(R.mipmap.ic_launcher)//图标
+                        .create();
+                alertDialog1.show();
+                return;
+            }
 
             for (int i = 0; i < allfiles.length; i++) {
                 name = allfiles[i].getName();
                 int index = name.lastIndexOf(".")+1;
                 suffix = name.substring(index);
-
+                char judge = name.charAt(1);
                 if (suffix.equals("JPG")){
                     String filePath = getAbsolutePath()+name;
                     Bitmap bm = BitmapFactory.decodeFile(filePath);
-                    count++;
+                   /* count++;
                     if (count==1){
+                        bmLeft=bm;
                         imageView.setImageBitmap(bm);
-                    }else{
+                    }else if(count==2){
+                        bmRight=bm;
+                        imageView2.setImageBitmap(bm);
+                    }*/
+                    if (judge=='S'){
+                        bmLeft=bm;
+                        imageView.setImageBitmap(bm);
+                    }else if(judge=='D'){
+                        bmRight=bm;
                         imageView2.setImageBitmap(bm);
                     }
+
                 }
             }
         }
 
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.imageView:
+                diaImage.setImageBitmap(bmLeft);
+                dia.show();
+                break;
+
+            case R.id.imageView2:
+                diaImage.setImageBitmap(bmRight);
+                dia.show();
+                break;
+
+            case R.id.commit_button:
+                moveFile();
+                imageView.setImageBitmap(null);
+                imageView2.setImageBitmap(null);
+                break;
+            case R.id.scan_button:
+                //                moveFile2();//移动所有图片到原来文件夹
+                showPicture(imageView,imageView2);//显示图片
+                break;
+            default:
+                break;
+        }
+    }
 
         private void moveFile(){
             String name = "";
@@ -270,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
     }*/
     private String getAbsolutePath(){
         String str = getExternalSdCardPath();
-        String path = str + "/Mobi/";
+        String path = str + "/Mobi/pictures/";
         return path;
     }
     private String getTargetPath(){
